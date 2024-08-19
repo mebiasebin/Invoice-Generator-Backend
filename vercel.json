@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "name": "Invoice_Generator",
+    "builds": [
+       { "src": "express.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+       { "src": "/(.*)", "dest": "/express.js" }
+    ]
+ }

@@ -3,12 +3,10 @@ const itemController = require('../controllers/itemExpressControllers');
 
 router.get("/readAll", itemController.readAll);
 
-router.get("/readItem", itemController.readItem);
-
 router.post("/createInvoice", itemController.createInvoice);
 
-router.delete("/deleteItem/:name", itemController.deleteItem);
+router.delete("/deleteItem/:id", itemController.deleteItem);
 
-router.put("/updateItem", itemController.updateItem);
+router.delete("/deleteAllItem", itemController.deleteAllItem);
 
 module.exports = router;

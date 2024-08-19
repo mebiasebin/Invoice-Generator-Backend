@@ -15,21 +15,6 @@ const readAll =  async (req,res) => {
     }
 }
 
-const readItem = async (req,res) => {
-    try{
-        let invoiceData = await itemModel.find({"_id": req.query.id});
-        (invoiceData.length > 0)
-            ?
-                res.status(200).json({"data": invoiceData, "msg": "", "err": ""})
-            :
-                res.status(404).json({"data": "", "msg": "No Item Found!", "err": ""});
-    }
-    catch(error){
-        console.log({"data": "", "msg": "", "error": error.message});
-        res.status(500).json({"data": "", "msg": "", "error": "Unable to read Item Data!"});
-    }
-}
-
 const createInvoice = async (req,res) => {
     try{
         let data = req.body;
@@ -54,30 +39,28 @@ const deleteItem = async (req,res) => {
     }
     catch(error){
         console.log({"data": "", "msg": "", "error": error.message});
-        res.status(500).json({"data": "", "msg": "", "error": "Unable to read Item Data!"});
+        res.status(500).json({"data": "", "msg": "", "error": "Unable to delete Item Data!"});
     }
 }
 
-const updateItem = async (req,res) => {
+const deleteAllItem = async (req,res) => {
     try{
-        let data = req.body;
-        let item = await itemModel.updateOne({"_id": data.id}, {$set: data});
-        (item.modifiedCount > 0)
+        let item = await itemModel.deleteMany({});
+        (item.deletedCount > 0)
             ?
-                res.status(200).json({"data": "", "msg": "Item Updated Successfully!", "err": ""})
+                res.status(200).json({"data": "", "msg": "Items Deleted Successfully!", "err": ""})
             :
-                res.status(404).json({"data": "", "msg": "No Item Found!", "err": ""});
+                res.status(404).json({"data": "", "msg": "No Items Found!", "err": ""});
     }
     catch(error){
         console.log({"data": "", "msg": "", "error": error.message});
-        res.status(500).json({"data": "", "msg": "", "error": "Unable to read Item Data!"});
+        res.status(500).json({"data": "", "msg": "", "error": "Unable to delete Items!"});
     }
 }
 
 module.exports = {
     readAll,
-    readItem,
     createInvoice,
     deleteItem,
-    updateItem
+    deleteAllItem
 };
